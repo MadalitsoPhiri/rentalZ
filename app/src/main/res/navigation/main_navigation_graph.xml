@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/home2">
+
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.example.rentalapartmentsfinder.ui.Fragments.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/addApartment"
+        android:name="com.example.rentalapartmentsfinder.ui.Fragments.AddApartment"
+        android:label="fragment_add_apartment"
+        tools:layout="@layout/fragment_add_apartment" >
+        <action
+            android:id="@+id/action_addApartment_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+</navigation>
