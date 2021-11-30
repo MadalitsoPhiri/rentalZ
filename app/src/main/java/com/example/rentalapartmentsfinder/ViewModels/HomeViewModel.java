@@ -1,4 +1,4 @@
-package com.example.rentalapartmentsfinder.ui.ViewModels;
+package com.example.rentalapartmentsfinder.ViewModels;
 
 import android.app.Application;
 

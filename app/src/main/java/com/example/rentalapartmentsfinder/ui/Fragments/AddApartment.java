@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.rentalapartmentsfinder.R;
 import com.example.rentalapartmentsfinder.databinding.FragmentAddApartmentBinding;
+import com.example.rentalapartmentsfinder.databinding.FragmentPropertyDetailsBinding;
+import com.example.rentalapartmentsfinder.models.property;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -25,6 +27,7 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -42,6 +45,8 @@ public class AddApartment extends Fragment {
     private ArrayAdapter bedroomsAdapter;
     private ArrayAdapter furnitureTypesAdapter;
     private final String TAG = "AddApartment";
+    private boolean isUpdate;
+    private String documentId;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public AddApartment() {
@@ -59,8 +64,32 @@ public class AddApartment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        Bundle bundle = getArguments();
+
         binding = FragmentAddApartmentBinding.inflate(getLayoutInflater());
+        if(bundle == null){
+            isUpdate = false;
+        }else {
+            Serializable args = bundle.getSerializable("property");
+            property current = ((property) args);
+            isUpdate = true;
+            documentId = ((property) args).getId();
+            binding.propertyType.getEditText().setText(((property) args).getPropertyType());
+            binding.Bedrooms.getEditText().setText(((property) args).getBedrooms());
+            binding.datepickerButton.setText(((property) args).getDate());
+            binding.Furniture.getEditText().setText(((property) args).getFurnitureType());
+            binding.notesField.getEditText().setText(((property) args).getNotes());
+            binding.reporterField.getEditText().setText(((property) args).getReporterName());
+            binding.monthlyRentalField.getEditText().setText(((property) args).getMonthlyRent());
+
+        }
+        if(isUpdate){
+            binding.title.setText("Update Property");
+            binding.addButton.setText("Update Property");
+        }
+
+        // Inflate the layout for this fragment
+
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,21 +175,22 @@ public class AddApartment extends Fragment {
                 }
 
                 Log.d(TAG, "onClick: "+"propertyTypeText: "+ propertyTypeText+" bedroomsTypeText: "+bedroomsTypeText+" dateText: "+dateText+" furnitureText: "+furnitureText+" monthlyRentalText: "+monthlyRentalText+" notesText: "+notesText+" reporterNameText: "+reporterNameText+" ");
-                if(!isError){
-                    binding.loadingProgress.setVisibility(VISIBLE);
-                    binding.loadingText.setVisibility(VISIBLE);
-                    binding.addPropertyLayout.setVisibility(View.GONE);
+                if(!isError) {
+
+
                     Map<String, Object> property = new HashMap<>();
                     property.put("propertyType", propertyTypeText);
-                    property.put("bedrooms",bedroomsTypeText );
+                    property.put("bedrooms", bedroomsTypeText);
                     property.put("date", dateText);
-                    property.put("furniture",furnitureText);
+                    property.put("furniture", furnitureText);
                     property.put("rental", monthlyRentalText);
                     property.put("notes", notesText);
                     property.put("reporterName", reporterNameText);
 
-
-
+                    if(!isUpdate){
+                        binding.loadingProgress.setVisibility(VISIBLE);
+                        binding.loadingText.setVisibility(VISIBLE);
+                        binding.addPropertyLayout.setVisibility(View.GONE);
                     db.collection("property")
                             .add(property)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -179,6 +209,33 @@ public class AddApartment extends Fragment {
                                     binding.addPropertyLayout.setVisibility(VISIBLE);
                                 }
                             });
+                }else{
+                        binding.loadingText.setText("Updating property...");
+                        binding.loadingProgress.setVisibility(VISIBLE);
+                        binding.loadingText.setVisibility(VISIBLE);
+                        binding.addPropertyLayout.setVisibility(View.GONE);
+
+                        db.collection("property").document(documentId)
+                                .update(property)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                        NavHostFragment.findNavController(getParentFragment()).popBackStack();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error updating document", e);
+                                        binding.loadingProgress.setVisibility(View.GONE);
+                                        binding.loadingText.setVisibility(View.GONE);
+                                        binding.addPropertyLayout.setVisibility(VISIBLE);
+                                    }
+                                });
+
+
+                }
 
                 }
 

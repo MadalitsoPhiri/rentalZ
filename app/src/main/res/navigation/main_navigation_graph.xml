@@ -3,13 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/appLoading">
 
     <fragment
         android:id="@+id/home2"
         android:name="com.example.rentalapartmentsfinder.ui.Fragments.Home"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home2_to_propertyDetails"
+            app:destination="@id/propertyDetails" />
+        <action
+            android:id="@+id/action_home2_to_addApartment"
+            app:destination="@id/addApartment" />
+    </fragment>
     <fragment
         android:id="@+id/addApartment"
         android:name="com.example.rentalapartmentsfinder.ui.Fragments.AddApartment"
@@ -17,6 +24,54 @@
         tools:layout="@layout/fragment_add_apartment" >
         <action
             android:id="@+id/action_addApartment_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/propertyDetails"
+        android:name="com.example.rentalapartmentsfinder.ui.Fragments.PropertyDetails"
+        android:label="PropertyDetails" />
+    <fragment
+        android:id="@+id/appLoading"
+        android:name="com.example.rentalapartmentsfinder.ui.Fragments.AppLoading"
+        android:label="fragment_app_loading"
+        tools:layout="@layout/fragment_app_loading" >
+        <action
+            android:id="@+id/action_appLoading_to_home2"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_appLoading_to_authScreen"
+            app:destination="@id/authScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/authScreen"
+        android:name="com.example.rentalapartmentsfinder.ui.Fragments.AuthScreen"
+        android:label="AuthScreen" >
+        <action
+            android:id="@+id/action_authScreen_to_login"
+            app:destination="@id/login" />
+        <action
+            android:id="@+id/action_authScreen_to_signUp"
+            app:destination="@id/signUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.rentalapartmentsfinder.ui.Fragments.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp"
+        android:name="com.example.rentalapartmentsfinder.ui.Fragments.SignUp"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUp_to_login"
+            app:destination="@id/login" />
+        <action
+            android:id="@+id/action_signUp_to_home2"
             app:destination="@id/home2" />
     </fragment>
 </navigation>

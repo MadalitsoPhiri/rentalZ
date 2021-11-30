@@ -1,11 +1,8 @@
-package com.example.rentalapartmentsfinder.ui.ViewModels;
+package com.example.rentalapartmentsfinder.ViewModels;
 
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class AddApartmentViewModel extends ViewModel {
     FirebaseFirestore db = FirebaseFirestore.getInstance();

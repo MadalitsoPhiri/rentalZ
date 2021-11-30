@@ -3,12 +3,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.Fragments.Home">
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <androidx.appcompat.widget.Toolbar
+           android:id="@+id/toolbar"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@color/purple_primary">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/apartmentsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               tools:layout_editor_absoluteX="16dp"
+               tools:layout_editor_absoluteY="18dp">
+
+               <TextView
+                   android:id="@+id/textView"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="RentalZ"
+                   android:textColor="@android:color/white"
+                   android:textSize="18sp"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <ImageView
+                   android:id="@+id/menuButton"
+                   android:layout_marginRight="16dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_baseline_more_vert_24"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+       </androidx.appcompat.widget.Toolbar>
+       <RelativeLayout
+           android:id="@+id/propertiesList"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <ProgressBar
+               android:id="@+id/dataLoadingProgress"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerInParent="true"
+               android:indeterminateTint="@color/purple_primary"
+               android:visibility="gone"
+               />
+
+           <TextView
+               android:id="@+id/dataLoadingText"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="20dp"
+               android:layout_below="@id/dataLoadingProgress"
+               android:layout_centerInParent="true"
+               android:text="loading properties Please wait...."
+               android:visibility="gone"/>
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/searchTextField"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="16dp"
+               android:hint="Search"
+               app:endIconDrawable="@drawable/ic_baseline_cancel_24"
+               app:endIconMode="custom"
+               >
+
+               <com.google.android.material.textfield.TextInputEditText
+
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+
+                   />
+
+           </com.google.android.material.textfield.TextInputLayout>
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/apartmentsRecyclerView"
+               android:layout_below="@id/searchTextField"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content" />
+       </RelativeLayout>
+
+   </LinearLayout>
+
 
 
     <ImageView
@@ -20,5 +109,25 @@
         android:tint="@color/purple_primary"
         android:layout_width="60dp"
         android:layout_height="60dp"/>
+
+    <ProgressBar
+        android:id="@+id/loadingProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/purple_primary"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/loadingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/loadingProgress"
+        android:layout_centerInParent="true"
+        android:text="loading properties Please wait...."
+        android:visibility="gone"/>
+
 
 </RelativeLayout>

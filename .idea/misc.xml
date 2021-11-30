@@ -5,8 +5,16 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
         <entry key="app/src/main/res/layout/fragment_add_apartment.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.21614583333333334" />
+        <entry key="app/src/main/res/layout/fragment_app_loading.xml" value="0.20108695652173914" />
+        <entry key="app/src/main/res/layout/fragment_auth_screen.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.21041666666666667" />
+        <entry key="app/src/main/res/layout/fragment_property_details.xml" value="0.21014492753623187" />
+        <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.24166666666666667" />
+        <entry key="app/src/main/res/layout/property_list_item.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/home_menu.xml" value="0.2234375" />
+        <entry key="app/src/main/res/menu/property_item_menu.xml" value="0.2682291666666667" />
       </map>
     </option>
   </component>
